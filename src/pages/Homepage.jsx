@@ -18,7 +18,9 @@ function Homepage() {
                 borderRadius='lg'
                 borderWidth='1px'
             >
-                <Text w='fit-content' mx='auto' fontSize='4xl' fontFamily='Work sans' color='black'>Talk-A-Tive</Text>
+                <Text w='fit-content' mx='auto' fontSize='4xl' fontFamily='Work sans' color='black'>
+                    Banter Box
+                </Text>
             </Box>
 
             <Box bg='white' w='100%' p={4} borderRadius='lg' borderWidth='1px' color='black'>
@@ -29,7 +31,7 @@ function Homepage() {
                     </TabList>
                     <TabPanels>
                         <TabPanel>
-                            <Login/>
+                            <Login />
                         </TabPanel>
                         <TabPanel>
                             <Signup />
