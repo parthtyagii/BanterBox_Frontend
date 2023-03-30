@@ -8,14 +8,12 @@ import ChatPage from './pages/ChatPage';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
 
         <Routes>
           <Route path='/' element={<Homepage />} />
           <Route path='/chats' element={<ChatPage />} />
         </Routes>
 
-      </BrowserRouter>
     </div>
   );
 }
