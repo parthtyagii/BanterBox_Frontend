@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from '@chakra-ui/react';
+import { Box, Button, FormControl, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, useDisclosure, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { ChatState } from '../../Context/ChatProvider';
 import axios from 'axios';
@@ -23,8 +23,8 @@ const GroupChatModal = ({ children }) => {
         }
         setSearch(query);
 
+        setLoading(true);
         try {
-            setLoading(true);
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
@@ -33,7 +33,6 @@ const GroupChatModal = ({ children }) => {
 
             const { data } = await axios.get(`/api/user?search=${query}`, config);
             setSearchResult(data);
-            setLoading(false);
         }
         catch (error) {
             toast({
@@ -45,7 +44,7 @@ const GroupChatModal = ({ children }) => {
                 position: 'bottom-left'
             });
         }
-
+        setLoading(false);
     }
 
     const handleGroup = async (userToAdd) => {
@@ -73,14 +72,14 @@ const GroupChatModal = ({ children }) => {
             })
             return;
         }
-        
+
         try {
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                 }
             };
-            
+
             const { data } = await axios.post('/api/chat/group', {
                 name: groupChatName,
                 users: JSON.stringify(selectedUsers.map((s) => s._id))
@@ -99,7 +98,7 @@ const GroupChatModal = ({ children }) => {
         catch (error) {
             toast({
                 title: 'Failed to create the chat!',
-                description: error.message ,
+                description: error.message,
                 status: 'error',
                 duration: 5000,
                 isClosable: true,
@@ -135,7 +134,7 @@ const GroupChatModal = ({ children }) => {
                             <Input
                                 placeholder="Chat Name"
                                 mb={3}
-                                onChange={(e) => setGroupChatName(e.target.name)}
+                                onChange={(e) => setGroupChatName(e.target.value)}
                             />
                         </FormControl>
                         <FormControl>
