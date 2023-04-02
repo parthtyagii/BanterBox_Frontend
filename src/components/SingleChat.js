@@ -141,12 +141,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 margin="auto"
                             />
                         ) : (
-                            <div
-                                display='flex'
-                                flexdirection='column'
-                                overflowy='scroll'
-                                scrollbarwidth='none'
-                            >
+                            <div style={{ display: 'flex', flexDirection: 'column', overflowY: 'scroll', scrollbarWidth: 'none' }}>
                                 <ScrollableChat messages={messages} />
                             </div>
                         )}

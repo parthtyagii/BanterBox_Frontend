@@ -21,7 +21,7 @@ function Homepage() {
     return (
         <Container maxW='xl' centerContent>
             <Box
-                d='flex'
+                display='flex'
                 justifyContent='center'
                 p={3}
                 bg='white'
@@ -35,7 +35,7 @@ function Homepage() {
                 </Text>
             </Box>
 
-            <Box bg='white' w='100%' p={4} borderRadius='lg' borderWidth='1px' color='black'>
+            <Box bg='white' w='100%' marginBottom='40px' p={4} borderRadius='lg' borderWidth='1px' color='black'>
                 <Tabs variant='soft-rounded'>
                     <TabList mb='1em'>
                         <Tab width='50%'>Login</Tab>

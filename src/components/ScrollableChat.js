@@ -1,7 +1,7 @@
 import React from 'react';
 import ScrollableFeed from 'react-scrollable-feed';
 import { ChatState } from '../Context/ChatProvider';
-import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../config/ChatLogics';
+import { isLastMessage, isSameSender, leftMarginCheck, rightMarginCheck, isSameUser } from '../config/ChatLogics';
 import { Avatar, Tooltip } from '@chakra-ui/react';
 
 
@@ -15,8 +15,8 @@ const ScrollableChat = ({ messages }) => {
         <ScrollableFeed>
             {messages && messages.map((m, i) => {
                 return (
-                    <div style={{ display: 'flex' }} key={m._id} >
-                        {(isSameSender(messages, m, i, user._id) || isLastMessage(messages, i, user._id)) &&
+                    <div style={{ display: 'flex', position: 'relative' }} key={m._id} >
+                        {(m.sender._id !== user._id) && (isSameSender(messages, m, i, user._id) || isLastMessage(messages, i, user._id)) &&
                             <Tooltip label={m.sender.name} placement='bottom-start' hasArrow >
                                 <Avatar
                                     mt='7px'
@@ -24,7 +24,8 @@ const ScrollableChat = ({ messages }) => {
                                     size="sm"
                                     cursor="pointer"
                                     name={m.sender.name}
-                                    pic={m.sender.pic}
+                                    src={m.sender.pic}
+                                    style={{ position: 'absolute', bottom: '0' }}
                                 />
                             </Tooltip>
                         }
@@ -34,8 +35,9 @@ const ScrollableChat = ({ messages }) => {
                             borderRadius: '20px',
                             padding: '5px 15px',
                             maxWidth: '75%',
-                            marginLeft: isSameSenderMargin(messages, m, i, user._id),
-                            marginTop: isSameUser(messages, m, i) ? 3 : 10,
+                            marginLeft: leftMarginCheck(messages, m, i, user._id),
+                            marginRight: rightMarginCheck(messages, m, i, user._id),
+                            marginTop: isSameUser(messages, m, i) ? '5px' : '30px',
                         }}>
                             {m.content}
                         </span>
@@ -43,7 +45,7 @@ const ScrollableChat = ({ messages }) => {
                     </div>
                 );
             })}
-        </ScrollableFeed>
+        </ScrollableFeed >
     )
 };
 
