@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-
+import { ChatState } from '../../Context/ChatProvider.js';
 
 
 const Signup = () => {
@@ -19,6 +18,8 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const toast = useToast();
     const history = useNavigate();
+
+    const { user, setUser } = ChatState();
 
     const handleClick = () => {
         setShow(!show);
@@ -47,7 +48,6 @@ const Signup = () => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data.url.toString())
                     setPic(data.url.toString());
                     setLoading(false);
                 })
@@ -110,6 +110,7 @@ const Signup = () => {
             });
 
             localStorage.setItem('userInfo', JSON.stringify(data));
+            setUser(data);
             setLoading(false);
             history('/chats');
         }

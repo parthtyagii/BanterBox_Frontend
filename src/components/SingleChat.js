@@ -7,7 +7,10 @@ import ProfileModal from './miscellaneous/ProfileModal';
 import UpdateGroupChatModal from './miscellaneous/UpdateGroupChatModal';
 import axios from 'axios';
 import ScrollableChat from './ScrollableChat';
+import io from 'socket.io-client';
 
+const ENDPOINT = 'http://localhost:1000';
+let socket, selectedChatCompare;
 
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -15,6 +18,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState();
     const [newMessage, setNewMessage] = useState("");
+    const [socketConnected, setSocketConnected] = useState(false);
 
     const { user, selectedChat, setSelectedChat } = ChatState();
     const toast = useToast();
@@ -34,6 +38,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
             const { data } = await axios.get(`/api/message/${selectedChat._id}`, config);
             setMessages(data);
+
+            socket.emit('join chat', selectedChat._id);
         }
         catch (error) {
             toast({
@@ -64,6 +70,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     chatId: selectedChat._id,
                 }, config);
 
+                socket.emit('new message', data);
                 setMessages([...messages, data]);
             }
             catch (error) {
@@ -77,7 +84,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 });
             }
         }
-
     }
 
     const typingHandler = async (e) => {
@@ -86,6 +92,25 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
 
     useEffect(() => {
+        socket = io(ENDPOINT);
+        socket.emit('setup', user);
+        socket.on('connected', () => setSocketConnected(true));
+    }, []);
+
+    useEffect(() => {
+        socket.on('message received', (newMessageReceived) => {
+            if ((!selectedChatCompare) || (selectedChatCompare._id !== newMessageReceived._id)) {
+                //notification
+                return;
+            }
+            else {
+                setMessages([...messages, newMessageReceived]);
+            }
+        });
+    });
+
+    useEffect(() => {
+        selectedChatCompare = selectedChat;
         fetchMessages();
     }, [selectedChat]);
 
@@ -106,7 +131,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         <IconButton
                             display={{ base: 'flex', md: 'none' }}
                             icon={<ArrowBackIcon />}
-                            onClick={() => setSelectedChat("")}
+                            onClick={() => setSelectedChat(null)}
                         />
                         {!selectedChat.isGroupChat ? (
                             <>
