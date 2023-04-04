@@ -15,7 +15,9 @@ Banter Box is a real time chat application.
 
 ## Built With
 
-* Made using MERN Stack.
+* Made using MERN Stack
+
+* Socket io
 
 * **Backend** - (https://github.com/parthtyagii/BanterBox_Backend)
 
