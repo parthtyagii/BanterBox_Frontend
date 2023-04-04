@@ -9,7 +9,7 @@ import axios from 'axios';
 import ScrollableChat from './ScrollableChat';
 import io from 'socket.io-client';
 
-const ENDPOINT = process.env.REACT_APP_BACKEND_URL;
+const ENDPOINT = 'https://banterbox.onrender.com/';
 let socket = null, selectedChatCompare = null;
 
 
