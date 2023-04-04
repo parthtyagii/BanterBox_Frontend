@@ -127,6 +127,7 @@ const SideDrawer = () => {
                 <div>
                     <Menu>
                         <MenuButton p={1}>
+                            {/* <NotificationBadge /> */}
                             <BellIcon fontSize='2xl' m={1} />
                         </MenuButton>
                         <MenuList style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
