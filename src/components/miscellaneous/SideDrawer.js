@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ChatLoading from '../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
+import { getSender } from '../../config/ChatLogics';
 
 
 const SideDrawer = () => {
@@ -17,7 +18,7 @@ const SideDrawer = () => {
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState();
 
-    const { user, setUser, selectedChat, setSelectedChat, chats, setChats } = ChatState();
+    const { user, setUser, selectedChat, setSelectedChat, chats, setChats, notifications, setNotifications } = ChatState();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
@@ -128,6 +129,28 @@ const SideDrawer = () => {
                         <MenuButton p={1}>
                             <BellIcon fontSize='2xl' m={1} />
                         </MenuButton>
+                        <MenuList style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            {(notifications.length === 0) && (<>No New Messages</>)}
+                            {(notifications.length > 0) && (
+                                notifications.map((notif) => {
+                                    return (
+                                        <MenuItem
+                                            key={notif._id}
+                                            onClick={() => {
+                                                setSelectedChat(notif.chat)
+                                                setNotifications(notifications.filter((n) => n !== notif))
+                                            }}
+                                        >
+                                            {notif.chat.isGroupChat ? (
+                                                `New Message in ${notif.chat.chatName}`
+                                            ) : (
+                                                `New Message from ${getSender(user, notif.chat.users)}`
+                                            )}
+                                        </MenuItem>
+                                    );
+                                })
+                            )}
+                        </MenuList>
                     </Menu>
 
                     <Menu>
