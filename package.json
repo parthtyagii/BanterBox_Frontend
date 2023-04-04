@@ -44,5 +44,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "${REACT_APP_BACKEND_URL}"
+  "proxy": "https://banterbox.onrender.com"
 }
