@@ -9,11 +9,12 @@ import GroupChatModal from './miscellaneous/GroupChatModal';
 
 
 
-const MyChats = ({fetchAgain}) => {
+const MyChats = ({ fetchAgain }) => {
 
     const [loggedUser, setLoggedUser] = useState();
     const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
     const toast = useToast();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     const fetchChats = async () => {
 
@@ -24,7 +25,7 @@ const MyChats = ({fetchAgain}) => {
                 },
             };
 
-            const { data } = await axios.get('/api/chat', config);
+            const { data } = await axios.get(url + '/api/chat', config);
             setChats(data);
         }
         catch (error) {

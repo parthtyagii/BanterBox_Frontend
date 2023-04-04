@@ -18,6 +18,7 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const toast = useToast();
     const history = useNavigate();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     const { user, setUser } = ChatState();
 
@@ -100,7 +101,7 @@ const Signup = () => {
                 },
             };
 
-            const { data } = await axios.post('/api/user/', { name, email, password, pic }, config);
+            const { data } = await axios.post(url + '/api/user/', { name, email, password, pic }, config);
             toast({
                 title: 'Registration Successful!',
                 status: 'success',

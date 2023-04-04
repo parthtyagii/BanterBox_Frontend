@@ -14,6 +14,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const toast = useToast();
     const history = useNavigate();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     const { user, setUser } = ChatState();
 
@@ -42,7 +43,7 @@ const Login = () => {
                 },
             };
 
-            const { data } = await axios.post('/api/user/login', { email, password }, config);
+            const { data } = await axios.post(url + '/api/user/login', { email, password }, config);
             toast({
                 title: 'Login Successful!',
                 status: 'success',

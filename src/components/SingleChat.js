@@ -21,6 +21,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     const { user, selectedChat, setSelectedChat, notifications, setNotifications } = ChatState();
     const toast = useToast();
@@ -38,7 +39,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 }
             };
 
-            const { data } = await axios.get(`/api/message/${selectedChat._id}`, config);
+            const { data } = await axios.get(url + `/api/message/${selectedChat._id}`, config);
             setMessages(data);
 
             socket.emit('join chat', selectedChat._id);
@@ -68,7 +69,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 };
 
                 setNewMessage("");
-                const { data } = await axios.post('/api/message', {
+                const { data } = await axios.post(url + '/api/message', {
                     content: newMessage,
                     chatId: selectedChat._id,
                 }, config);
