@@ -37,14 +37,14 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-* Clone the repo 
+* Clone the repos
 
 ```sh
-     git clone https://github.com/parthtyagii/BanterBox_Frontend
+     https://github.com/parthtyagii/BanterBox_Frontend
 ```
 
 ```sh
-     git clone https://github.com/parthtyagii/BanterBox_Backend
+     https://github.com/parthtyagii/BanterBox_Backend
 ```
 
 * Install NPM packages in both frontend and backend folders.
