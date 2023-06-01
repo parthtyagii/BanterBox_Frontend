@@ -1,17 +1,15 @@
 <br/>
 <p align="center">
-  
-  <h1 align="center">Banter Box</h1>
-  <br>
-  
+  <h1 align="center">Banter Box</h1>  
 </p>
 
 
 ## About The Project
 
 Banter Box is a real time chat application.
-
 <br>
+
+https://github.com/parthtyagii/BanterBox_Frontend/assets/80752912/1d5850fa-504f-461f-ada4-df1048e9e5ea
 
 ## Built With
 
@@ -81,5 +79,3 @@ To get a local copy up and running follow these simple example steps.
 ## Authors
 
 * **Parth Tyagi** - [parthtyagii](https://github.com/parthtyagii)
-
-
